@@ -42,13 +42,11 @@ class CompanyController extends Controller
             $company->save();
         }
 
-        $httpCode = ($status === CompanyStatus::DUPLICATE) ? Response::HTTP_OK : Response::HTTP_CREATED;
-
         return response()->json([
             'status' => $status->value,
             'company_id' => $company->id,
             'version' => $company->getCurrentVersionNumber(),
-        ], $httpCode);
+        ], $status === CompanyStatus::CREATED ? Response::HTTP_CREATED : Response::HTTP_OK);
     }
 
 }
