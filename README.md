@@ -28,15 +28,11 @@
    git clone <repository_url>
    cd company-api
 
-2. **Підготуйте файл оточення:**
-   ```bash
-   cp .env.example .env
-   
-3. **Запустіть Docker-контейнери:**
+2. **Запустіть Docker-контейнери:**
    ```bash
    docker compose up -d --build
 
-4. **Встановіть залежності та налаштуйте БД**
+3. **Встановіть залежності та налаштуйте БД**
     ```bash
     docker compose exec app composer run setup
 
