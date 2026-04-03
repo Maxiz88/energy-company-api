@@ -44,7 +44,7 @@ class CompanyApiTest extends TestCase
 
         $response = $this->postJson('/api/company', $payload);
 
-        $response->assertStatus(201)
+        $response->assertStatus(200)
             ->assertJson([
                 'status' => CompanyStatus::UPDATED->value,
                 'version' => 2

@@ -12,9 +12,10 @@
 
 ## Технічний стек
 - **Framework**: Laravel 12
-- **PHP**: 8.2+
+- **PHP**: 8.4 (Alpine image)
 - **Database**: MySQL 8.4
-- **Environment**: Laravel Sail (Docker)
+- **Web Server**: Nginx
+- **Environment**: Docker
 
 ---
 
@@ -31,22 +32,13 @@
    ```bash
    cp .env.example .env
    
-3. **Встановіть залежності (Composer):**
+3. **Запустіть Docker-контейнери:**
    ```bash
-   docker run --rm \
-    -u "$(id -u):$(id -g)" \
-    -v "$(pwd):/var/www/html" \
-    -w /var/www/html \
-    laravelsail/php83-composer:latest \
-    composer install --ignore-platform-reqs
+   docker compose up -d --build
 
-4. **Запустіть Docker-контейнери**
+4. **Встановіть залежності та налаштуйте БД**
     ```bash
-    ./vendor/bin/sail up -d
-
-5. **Виконайте міграції та заповніть базу тестовими даними**
-    ```bash
-    ./vendor/bin/sail artisan migrate:fresh --seed```
+    docker compose exec app composer run setup
 
 
 ## API Ендпоінти
@@ -74,8 +66,9 @@
 ## Тестування
 #### Проєкт містить Feature-тести, що покривають основну логіку. Для запуску виконайте:
 ```bash
-./vendor/bin/sail artisan test
-```
+    docker compose exec app php artisan test
+   ```
+    
 #### Тести перевіряють:
     * Створення нових записів.
     * Коректність інкременту версій при зміні полів.
